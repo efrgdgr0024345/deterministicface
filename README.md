@@ -1,56 +1,42 @@
 # DeterministicFace
 
-**A hash becomes one reproducible, procedurally constructed portrait scene.**
+A recognisable synthetic face **and background** derived from the actual public key a trusted application uses. The same canonical key and frozen specification must independently regenerate identical complete portrait pixels.
 
-The face, background, and relationships between them all come from fixed mathematical rules applied to the same complete hash. This is not a prompt-to-image service, a face-recognition system, or a lookup table of finished avatars.
+## Current authority
 
-## Product contract
+The owner approved the comparative-renderer recommendations and a combined project console on 2026-09-27. Read [ADR 0002](docs/adr/0002-comparative-renderers-and-console.md) before older procedural-only documents. It explicitly supersedes the affected earlier decisions; the HKDF contract and vectors remain unchanged.
 
-```text
-32-byte hash + pinned generator profile
-                |
-         deterministic derivation
-                |
-       constrained scene construction
-          /           |           \
-       face       background     interaction landmarks
-          \           |           /
-            canonical scene + SVG
-                       |
-           familiar full-scene display
-                       |
-          fixed clockwise magnified scan
-```
+## What exists
 
-The intended human check has three layers: recognise the natural-looking synthetic face, recognise the entire background/composition, and inspect a privately and randomly selected local landmark. The checkpoint is selected once and remembered, not re-randomised on every visit. The normal application does not ask the person to click, disclose, or store it.
+- Design, exact derivation contract/vectors and repository validation scaffolding.
+- `loader.php`: a single PHP source combining update controls, embedded scope, milestones, decisions, source credits, deployment identity, logs and rollback.
+- Console regression tests and local HTTPS integration tests. See [test evidence](docs/CONSOLE_TESTS.md).
 
-Same hash and profile must reproduce the same canonical output. Even a one-bit input change is intended to produce a markedly different face **and** background. Perceptual distinctiveness and resistance to adversarial lookalikes remain evaluation goals, not established security guarantees. Extra deterministic detail does not create extra cryptographic entropy.
+**The portrait generator, actual-key adapter and application are not implemented. No stable portrait profile or perceptual security claim exists.** The console is delivery tooling, not those features.
 
-## Start here
+## Use the console
 
-- [Agent instructions](AGENTS.md) and [handoff](docs/HANDOFF.md).
-- [System design](docs/SYSTEM_DESIGN.md): product, architecture, verification flow and boundaries.
-- [Generator contract](docs/GENERATOR_CONTRACT.md): precise first implementation interface.
-- [First task: DF-001](docs/tasks/DF-001.md): hash parsing and parameter derivation only.
-- [Acceptance tests](docs/ACCEPTANCE_TESTS.md), [threat model](docs/THREAT_MODEL.md), and [roadmap](docs/ROADMAP.md).
-- [Project setup](PROJECT_START.md), [AI governance](docs/AI_GOVERNANCE.md), and [status](docs/STATUS.md).
+Read [installation and operation](docs/CONSOLE.md). Upload only `loader.php` to a dedicated project folder. Runtime credentials, configuration, backups and state stay outside the public document root. There is no separate `project.php` or `project_content.json` to maintain.
 
-## What exists now
+The normal update channel is `main`. Until the console changes are reviewed and merged, `feat/df-000a-project-console` is an explicitly acknowledged experimental channel. Checking a branch resolves an exact commit; installation downloads that commit, rechecks required CI, and never substitutes a newer moving snapshot.
 
-This bootstrap contains design, task contracts, deterministic derivation vectors, repository validation tools, and a CI workflow. **The application, portrait renderer, website and scan player are not implemented.** Passing bootstrap CI validates this handoff package; it does not validate a portrait or its security.
+## Development sequence
 
-Run the existing checks from the repository root with Python 3.12 or newer:
+1. Review this reconciled foundation and console work.
+2. Implement [DF-001](docs/tasks/DF-001.md) unchanged: parser, labelled HKDF derivation and sampling.
+3. Add a bounded real-public-key adapter and signed-file demonstration.
+4. Compare procedural and existing learned generators on 100 predetermined test keys.
+5. Select and harden the renderer using exactness, visual quality, recognition and lookalike evidence.
 
-```bash
+[System design](docs/SYSTEM_DESIGN.md) · [Roadmap](docs/ROADMAP.md) · [Agent handoff](docs/HANDOFF.md) · [Status](docs/STATUS.md) · [References](docs/REFERENCES.md)
+
+```sh
 python3 tools/check_repository.py
 python3 -m unittest discover -s tools -p 'test_*.py' -v
 python3 tools/check_vectors.py
+php -l loader.php
+DF_REQUIRE_EXT=1 php tools/test_loader.php
+python3 tools/test_loader_http.py
 ```
 
-The proposed application uses a portable TypeScript core with native Web Crypto, then a small browser interface. No runtime backend, AI model, database, paid service, or new droplet is required for the first prototype. See [ADR 0001](docs/adr/0001-procedural-client-side-core.md).
-
-## Delivery boundary
-
-One bounded task per branch and PR. Validate the exact PR head, inspect substantive review findings, and merge only through the documented gate. Keep Matrix, BIGHUB, PTL, and all existing droplets untouched. BIGHUB is the ecosystem governance reference, not a generation dependency.
-
-The repository remains private. GitHub currently reports a plan restriction on rulesets; see [status](docs/STATUS.md). Repository documents are not a substitute for server-enforced branch protection.
+The PHP ZIP extension is required for all archive tests; absent-extension skips must not be reported as a full pass. The HTTPS tests use a local ephemeral certificate and fixture credentials only. The production client does not disable TLS certificate verification.
