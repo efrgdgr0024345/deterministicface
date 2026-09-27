@@ -1,28 +1,16 @@
-# Bounded roadmap
+# Evidence-led roadmap
 
-Each row is a separate review gate, not permission to implement the complete product. Status is tracked in [STATUS.md](STATUS.md). Implementation acceptance criteria live in [ACCEPTANCE_TESTS.md](ACCEPTANCE_TESTS.md).
+The owner approved this direction on 2026-09-27. [ADR 0002](adr/0002-comparative-renderers-and-console.md) supersedes the mandatory procedural-only roadmap.
 
-| Task | Bounded outcome | Dependencies | Explicit exclusion |
-| --- | --- | --- | --- |
-| DF-000 | This design/handoff, vectors, repository checks and PR | Starter repository | No application or deployment |
-| DF-001 | Strict digest parser, labelled native HKDF and unbiased integer sampler | DF-000 baseline available | No faces, background, UI or new server |
-| DF-002A | Numerical face/scene schema and constraint-table proposal with tests | DF-001 | No whole renderer rewrite |
-| DF-002B | Deterministic constrained face geometry and reviewed contact sheet | DF-002A reviewed | No claim of naturalness until reviewed |
-| DF-003A | Deterministic background grammar | DF-002 geometry contract | No independent RNG or image API |
-| DF-003B | Face/background landmarks and crop coverage | DF-003A | No recording secret checkpoints |
-| DF-004 | Canonical SVG and pinned reference raster environment | DF-003B | No universal browser pixel guarantee |
-| DF-005A | Local browser overview plus raw hex/profile comparison | DF-004 | No authentication claim or runtime backend |
-| DF-005B | Fixed clockwise scan, controls, accessibility and privacy tests | DF-005A | No auto-approval or secret-location selection UI |
-| DF-006 | Avalanche corpus and attacker-selected lookalike screening | DF-005 | No extrapolated security bits |
-| DF-007 | Consented comparative human study and report | DF-006 | No covert data collection |
-| DF-008 | Frozen stable profile and separately reviewed protocol integration | Evidence from DF-006/007 | No production release without approval |
+| Stage | Deliverable | Completion gate |
+| --- | --- | --- |
+| DF-000A | Reconciled foundation and combined loader/project console | Tests, exact-head CI and review; hosting separate |
+| DF-001 | Existing digest parser, HKDF and sampling | Fixed vectors and all negative/runtime-isolation tests |
+| DF-001B | Actual-key adapter and signed-file demo | Portrait material tied to actual operation key; stale/concurrent-result tests |
+| DF-002A | Small procedural face/background candidate | Complete unfiltered sample set, exactness and resource evidence |
+| DF-002B | Existing learned face/background candidate | Frozen weights/noise, licence/provenance review, exactness and resource evidence |
+| DF-003 | 100-key matched comparison and renderer decision | Documented results; no cherry-picking or silent requirement relaxation |
+| DF-004 | Human recognition and budgeted lookalike attacks | Held-out human evidence, valid keys, explicit search budgets and limitations |
+| DF-005 | Portable frozen profile/integration | Exact reference pixels on supported targets, preserved old identities |
 
-DF-002/003 may be split further to stay reviewable. The core's natural-looking portrait requirement must not be downgraded merely to finish a milestone. If a renderer approach cannot meet it, propose a small evidence-based ADR.
-
-## Milestone exit record
-
-Record branch/PR, exact tested commit, executed commands, test results, completed review, unresolved risks, and whether merged. Deployment is separately recorded; none is planned now. Preserve "not implemented", "proposed" and "verified" as different states.
-
-## Deliberately deferred decisions
-
-Numerical art tables belong to DF-002A; reference rasterizer selection to DF-004; browser/device support to DF-005A; human-study sample size and release thresholds to DF-007; real-key encoding/protocol binding to DF-008. A smaller model must not guess these in DF-001 or expand scope to solve them all.
+Later controlled experiments: private checkpoint/scan; CEAL-inspired coding; targeted fine-tuning. None is presumed beneficial. No new infrastructure or training allocation is assumed. Update the embedded milestones in loader.php when evidence changes; do not mark code as merged, deployed or secure because a local test passed.

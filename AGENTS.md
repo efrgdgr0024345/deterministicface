@@ -2,44 +2,33 @@
 
 ## Mission and authority
 
-Build the owner's deterministic **whole-scene** visual fingerprint, not a different face-generation product. Natural-looking synthetic face, deterministic background, face/background interaction landmarks, and a repeatable clockwise inspection scan are all required.
+Help a human recognise the **actual working public key** in a trusted application through an exactly reproducible face and background. The local system, app, display and cryptographic implementation are accepted trusted assumptions. Do not repeatedly challenge them or raise copied pictures/public keys as an objection to this scoped project.
 
-Authority: current explicit owner instruction; this file and [AI governance](docs/AI_GOVERNANCE.md); [system design](docs/SYSTEM_DESIGN.md); [generator contract](docs/GENERATOR_CONTRACT.md); [acceptance tests](docs/ACCEPTANCE_TESTS.md); accepted ADRs; current task; roadmap. A later ADR changes a contract only when it explicitly identifies and updates the superseded sections. Stop and record a real conflict rather than silently selecting the easier interpretation.
-
-## Context budget
-
-First read this file, [handoff](docs/HANDOFF.md), [status](docs/STATUS.md), and the current task. Then read only the contract sections and files that task names. Do not routinely load Matrix or BIGHUB. Their local boundary is sufficient. Do not copy sibling implementations.
+Authority order: current explicit owner instruction; this file; [ADR 0002](docs/adr/0002-comparative-renderers-and-console.md); [system design](docs/SYSTEM_DESIGN.md); relevant unchanged [generator contract](docs/GENERATOR_CONTRACT.md) sections; acceptance tests; current task. ADR 0002 identifies which older procedural-only sections it supersedes. Preserve the exact DF-001 derivation framing and expected vectors.
 
 ## Invariants
 
-- Every visible scene component is derived from the complete hash and a pinned profile. No independent runtime randomness, timestamps, environment-dependent seeds, external image fetching, or AI image generation.
-- Never partition raw hash bits into isolated face/background controls. Use labelled derivation from the entire input. Shared composition geometry is permitted and required for interaction landmarks.
-- Deterministic does not mean collision-free, perceptually unique, or secure against lookalike search. Do not claim security bits from parameter count or image complexity.
-- A checkpoint is a private human checking rule, not an application password, a second cryptographic factor, or a key derivation input. No checkpoint telemetry or special secret-location highlight.
-- The portrait is a synthetic fingerprint, not the actual appearance, name, demographic profile, or biography of the key owner. No real-person photographs or biometric enrolment.
-- Never override an exact key mismatch with a familiar-looking portrait. Never claim a pasted hash proves possession of a private key.
-- Never change released profile output silently. Golden fixture updates need explained contract changes, not snapshot regeneration to hide failures.
-- Keep core generation independently testable without DOM, network, LLM, camera, microphone, or server.
+- Same canonical working key plus frozen profile must independently reproduce identical full portrait pixels, including face and background. Cache is an optimisation, not identity authority.
+- Derive all face/background material from the complete digest through the existing labelled HKDF construction. Do not split raw input bits into isolated feature families or reduce the result to a tiny seed.
+- A deterministic procedural candidate and a frozen local learned candidate are both authorised experiments. Do not use an external image API, train a new model or select the winner without evidence and an explicit design decision.
+- Identical SVG/scene bytes do not meet the final pixel requirement by themselves. Exact pixel conformance on supported targets is an early gate.
+- The portrait engine accepts public material, never private keys. A separate small demo may use synthetic test key pairs for signing/verification, without putting a private key into portrait derivation.
+- The key adapter must use the actual operation key, including stale/concurrent job tests. Never use an unrelated display key.
+- No security bits inferred from parameter count, backgrounds, ECC or pixel diversity. Perceptual improvement and targeted lookalike resistance must be tested.
+- Preserve the optional private-landmark/scan research as a separate later experiment, not a prerequisite for the first verifier. No production checkpoint collection.
+- Freeze released profiles; do not silently regenerate familiar keys using new mappings. Label experimental revisions clearly.
+- Keep the generator independent of UI/network/camera/microphone. The PHP console is separate delivery/research tooling.
 
 ## Work loop
 
-1. Inspect live branch/PR/task state before editing. Preserve unrelated work.
-2. Implement one bounded task on its own branch, with negative tests and traceable requirement IDs.
-3. Run the documented local commands. Record actual results, not intended results.
-4. Audit adjacent invariants and all related edge cases together before requesting review. Avoid repeated one-finding patches when a consolidated fix is possible.
-5. Open/update the PR. Obtain CI on the exact head and a substantive review of that head. A requested review, an eyes reaction, silence, or old approval is not a completed clean review.
-6. Resolve a finding only with evidence: fix plus relevant test, or an explicit reasoned reviewer agreement that it is not applicable. Do not dismiss findings to get a green badge.
-7. Do not self-approve, force-push, bypass protections, merge failing checks, or weaken tests. Missing review access/protection is an operational gap to report, not permission to fabricate approval.
-8. Update status/handoff at task completion, identifying code merged versus deployed versus only proposed.
+Read this file, [handoff](docs/HANDOFF.md), [status](docs/STATUS.md) and the current task; then only relevant sections. Inspect live branch/PR state. Preserve unrelated work and fixed vectors. Use one bounded branch/PR; execute local tests and CI on the exact head. Review the substantive changes, not merely green badges. Never self-approve, force-push, bypass protection or treat a review request as approval. Record merge, deployment, CI and review state separately.
 
-Suggested task budget: at most six hand-written implementation files and about 350 changed implementation lines, excluding lockfiles, test fixtures, and generated output. Split larger work into separately reviewed tasks instead of omitting tests.
+The console task is an owner-authorised exception to the earlier suggested implementation-line budget because the owner explicitly requested one self-contained PHP file combining two supplied examples. Do not expand it into generator implementation. Later coding tasks remain small and individually reviewed.
 
-## Autonomy and scope
+## Autonomy and boundaries
 
-Within an authorised task, make ordinary implementation choices and fix straightforward failures without repeated user prompts. Report meaningful actions or blockers briefly. Stop at the task's completion gate; do not implement the entire roadmap in one run. Never imply unattended background work unless an actual authorised automation exists.
+The owner authorised the approved plan and creation of this console/tests/documentation in the existing repository. Ordinary local implementation and tests fit this task. No authority to spend, create droplets, change visibility/account plans/permissions, merge without review, publish a package or deploy to the live host is inferred. Keep Matrix, BIGHUB, PTL, LearnPiano and their servers unchanged. Use the supplied examples as credited source material, not live sibling-project edit targets.
 
-No authority is granted to provision infrastructure, spend money, change repository visibility, modify account permissions, deploy, publish a package, or touch existing droplets. No runtime BIGHUB integration is required for this pure generator; consequential external actions follow the local governance contract.
+Never hard-code real credentials or commit generated setup codes. Console mutations require authenticated POST + CSRF; configuration/token/backups/state stay outside the public web root. Never claim a dashboard milestone is complete merely because the loader installed successfully.
 
-## Review emphasis
-
-Review encoding ambiguity, version drift, cross-platform determinism, ignored fields, uniform sampling boundaries, face/background independence mistakes, checkpoint disclosure, and tests that validate fixtures rather than implementation. Check claim wording as carefully as code.
+Report actual evidence and remaining blockers. Do not promise unattended future/background work. Stop at the bounded task gate.
