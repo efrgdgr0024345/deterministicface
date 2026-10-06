@@ -1,13 +1,23 @@
-# Project status
+# Project status — GitHub test demo
 
-Recorded 2026-09-27. Consult live GitHub for subsequent CI, reviews and merges.
+Updated 6 October 2026 for PR #4, branch `feat/df-demo-github`.
 
-- Repository remains private: efrgdgr0024345/deterministicface.
-- Existing DF-000 design PR #1 was open/unmerged at inspection, head 1a173b6b8ca7513d20465011eb7fbc82f937761c. Main still held the starter README.
-- The owner approved the revised comparative-renderer direction and combined loader/project console. ADR 0002 records this approval and supersedes the affected earlier design decisions.
-- DF-000A is a dependent implementation/documentation change, not a main deployment. It includes loader.php and test tooling. See CONSOLE_TESTS.md for local evidence and limitations.
-- DF-001 application primitives, actual-key adapter, both renderers, stable pixel profile and human/security evaluation are not implemented/completed.
-- No live hosting, paid service, new droplet, account change, visibility change or sibling-project modification is performed by this task.
-- Historic branch-protection/ruleset restrictions from the bootstrap are not silently treated as resolved. Verify current permissions before merge; owner approval of direction is not automatic code-review approval.
+The owner authorised continuing to a working password-free demo with multiple files. This supersedes the old cPanel-first route for this stage. The old design, loader and vectors remain preserved; loader.php is not executed or served by the new demo.
 
-Next: complete review of the dependent console/reconciliation change, integrate it into the existing design proposal, and implement the unchanged bounded DF-001 task. Do not bypass review or claim the whole generator is working.
+| Area | State |
+| --- | --- |
+| Derivation foundation | Implemented against the unchanged HKDF/vector contract; negative, mutation-isolation and sampling tests included |
+| Actual-key adapter | Ed25519 verification uses the same public CryptoKey that is exported for portrait derivation |
+| First renderer | Implemented procedural illustrated face and background; canonical software RGBA and PNG |
+| Browser demo | Implemented new-key, regeneration, one-bit digest comparison, gallery, signature demonstration and self-tests |
+| GitHub runtime | Devcontainer and start/update controls provided; actual Codespace creation requires an available authorised tool or owner click |
+| Running public endpoint | Not claimed until a real Codespace has been started and its forwarded URL observed |
+| Testing | 28 core/server tests passed locally and in the initial GitHub run. Consult exact-head PR checks/comments for browser and subsequent test evidence |
+| Review | PR #4 review identified stale input/portrait labelling; the follow-up clears old output and adds a browser regression test. Re-review of the latest head is required |
+| Main / dependent PRs | Work remains a dependent PR on the console branch; no merge claimed |
+| Learned renderer / human study | Not implemented/performed; the illustrated candidate is not a final renderer decision |
+| Legacy loader | Preserved, unserved. PR #3's HTTP credential-form finding remains a separate unresolved issue |
+
+The setup-code/token/password discussion applies to the historical cPanel loader, not this GitHub-only demo. Do not ask the owner to repeat it.
+
+No security certification, platform-wide proof, photorealism, accepted human-recognition result or live user test is implied. See the [demo notes](DEMO.md), [ADR 0003](adr/0003-github-test-demo.md), and [handoff](HANDOFF.md).

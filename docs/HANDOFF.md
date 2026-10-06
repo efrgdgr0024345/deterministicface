@@ -1,19 +1,25 @@
-# Agent handoff — reconciled scope
+# Agent handoff — working GitHub test demo
 
-Read AGENTS.md, [ADR 0002](adr/0002-comparative-renderers-and-console.md), [status](STATUS.md) and the current task. Do not reconstruct requirements from older snippets or repeat the copied-picture objection: the trusted app displays the actual working key.
+Start with AGENTS.md, [ADR 0003](adr/0003-github-test-demo.md), [status](STATUS.md), [demo notes](DEMO.md) and the current PR head. The latest owner instruction authorises a multi-file, password-free working demo hosted through GitHub. Do not restart cPanel/token/setup-code work.
 
-The owner approved all comparative-renderer recommendations and a single-file project console. Keep existing HKDF/vector work. Exact complete pixels and the deterministic background are fixed requirements. Renderer choice remains experimental; compare procedural and frozen learned candidates before selecting. Bring a small real-key/signed-file demonstration early. Scan/checkpoint research is a separate later experiment.
+## Fixed requirements
 
-## Current change
+The system/application/display/cryptography are trusted. The portrait represents the actual working public key. The same canonical key and frozen profile independently regenerate identical face AND background pixels. Cache is not identity authority; the full digest enters every labelled HKDF derivation. Do not reopen copied-picture objections or modify the existing derivation vectors.
 
-DF-000A adds loader.php, console tests and reconciled documents. It is based on the unmerged design branch; its PR must make that dependency explicit. No main merge or hosting is implied. Before approval, inspect exact-head CI and substantive review, not just this handoff.
+## Current implementation
 
-## Next bounded implementation
+The `feat/df-demo-github` branch and PR #4 add a native Web Crypto core, Ed25519 working-key adapter, original procedural face/background, software RGBA rasterizer, canonical PNG, browser worker, password-free demonstration and read-only static server. Tests include original vectors, 100 public key/signature fixtures, pixel goldens/fresh-process regeneration, server isolation and real browser controls.
 
-DF-001 remains unchanged: parser, native Web Crypto HKDF and bounded integer sampling. Use the exact framing and checked-in vectors; retain negative/mutable-buffer/call-order tests. No renderer or key-adapter implementation within that task. Then write a bounded DF-001B key-adapter/demo task and separate renderer experiment cards.
+The face is illustrative, not photorealistic. No learned-generator winner, human-recognition result or lookalike-security claim is established. This is the first test candidate in the approved comparison, not abandonment of the learned candidate.
 
-The one-file PHP dashboard is delivery tooling, not proof that DF-001 or a portrait works. Keep its embedded milestone evidence honest when later tasks complete. Stage web-ready builds under web/; the loader does not run npm, train models or compile TypeScript on cPanel.
+## Continue from evidence
 
-## Report
+Read live CI and substantive review on the exact head. The initial browser run exposed a CSP-incompatible test wait; it was corrected without relaxing the page CSP. Review identified stale portraits after input edits; the fix clears old output/download/repeat controls and adds a regression test. Verify both on the latest head instead of assuming a new commit inherits old checks.
 
-Report local tests, skipped tests, exact commit, CI, independent review, merged/deployed state and blockers separately. Keep repository private and all existing servers/sibling projects untouched. Do not self-approve, bypass missing protection, spend or claim unattended progress.
+Create/resume the specified Codespace using an available authorised action; otherwise give the owner the README's branch-specific creation link. Never invent an active app.github.dev URL. The app itself has no password. Share only port 8000, not repository files or the legacy loader.
+
+Do not merge automatically. Preserve local changes and existing branches. Keep the legacy loader review finding distinct from demo readiness. Read-only test execution and approved implementation can proceed without requesting the owner to repeat settled requirements.
+
+## Next research work after user testing
+
+Collect feedback on real portraits and controls. Then separately evaluate naturalness, all 100 rendered portraits, the frozen learned candidate, runtime conformance, budgeted valid-key lookalikes and human studies. The optional landmark/scan remains later research. Do not inflate this demonstration into a completed security product.

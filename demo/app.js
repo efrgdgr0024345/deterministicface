@@ -15,8 +15,17 @@ function status(message,kind=''){const el=$('status');el.textContent=message;el.
 function friendly(error){const c=error instanceof Error?error.message:String(error);if(c==='INVALID_INPUT')return 'Enter exactly 64 hexadecimal characters (0–9 and a–f).';if(c.includes('CRYPTO_UNAVAILABLE'))return 'This browser needs HTTPS or localhost and native Web Crypto.';if(c.includes('UNSUPPORTED'))return 'This browser does not support the requested key operation. Use the digest laboratory or a current browser.';return 'The operation could not complete: '+c.slice(0,140);}
 function picture(id,result){const previous=urls.get(id);const url=URL.createObjectURL(new Blob([result.png],{type:'image/png'}));$(id).src=url;$(id).hidden=false;urls.set(id,url);if(previous)URL.revokeObjectURL(previous);return url;}
 function hideComparison(){$('comparison-card').hidden=true;$('portrait-grid').classList.remove('compare');}
-function setInput(raw,mode='key'){$('input-mode').value=mode;$('key-input').value=raw;}
+function invalidatePortrait(){
+ current.cancel();last=null;hideComparison();$('portrait').hidden=true;$('placeholder').hidden=false;
+ $('placeholder').querySelector('p').textContent='Generate a portrait for the current input.';
+ $('pixel-hash').textContent='Not generated';$('input-digest').textContent='—';$('render-time').textContent='—';$('portrait-label').textContent='NO CURRENT PORTRAIT';
+ $('repeat').disabled=true;$('flip').disabled=true;$('download').classList.add('disabled');$('download').removeAttribute('href');
+ $('binding-note').textContent='No portrait is associated with the current input until generation succeeds.';
+ const previous=urls.get('portrait');if(previous){URL.revokeObjectURL(previous);urls.delete('portrait');$('portrait').removeAttribute('src');}
+}
+function setInput(raw,mode='key'){invalidatePortrait();$('input-mode').value=mode;$('key-input').value=raw;}
 async function generate(){
+ invalidatePortrait();
  const operation=current.begin(),mode=$('input-mode').value,raw=$('key-input').value;
  status('Deriving the complete portrait from the selected input…');hideComparison();
  try{
@@ -29,11 +38,12 @@ async function generate(){
   $('binding-note').textContent=mode==='key'?'Derived from the public key above. Pasting a key is not authentication; the verification tab demonstrates the actual working-key binding.':'Laboratory digest input only—not a claim that a valid key or authenticated connection exists.';
   $('repeat').disabled=false;$('flip').disabled=false;$('download').classList.remove('disabled');$('download').href=urls.get('portrait');
   status('Portrait generated. The complete face and background come from this input.');
- }catch(e){if(current.isCurrent(operation)){status(friendly(e),'error');$('binding-note').textContent='The current input failed. Any visible portrait is the previous result, not this input.';}}
+ }catch(e){if(current.isCurrent(operation)){status(friendly(e),'error');$('binding-note').textContent='The current input failed. No portrait is associated with this input.';}}
 }
 $('generate').onclick=generate;
-for(const id of ['key-input','input-mode'])$(id).addEventListener('input',()=>{current.cancel();status('Input changed. Choose Generate portrait to update the image.','warn');});
+for(const id of ['key-input','input-mode'])$(id).addEventListener('input',()=>{invalidatePortrait();status('Input changed. Choose Generate portrait to update the image.','warn');});
 $('new-key').onclick=async()=>{
+ invalidatePortrait();
  const operation=current.begin();status('Creating a new public test key in this browser…');
  try{const pair=await cryptoAPI().generateKey('Ed25519',false,['sign','verify']);const raw=hex(new Uint8Array(await cryptoAPI().exportKey('raw',pair.publicKey)));if(!current.isCurrent(operation))return;setInput(raw);await generate();}catch(e){if(current.isCurrent(operation))status(friendly(e),'error');}
 };
