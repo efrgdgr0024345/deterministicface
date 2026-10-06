@@ -12,3 +12,7 @@ artifacts/
 corpora/
 *.pem
 *.key
+demo/core/
+demo/data/
+.demo-runtime/
+reports/

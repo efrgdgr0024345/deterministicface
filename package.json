@@ -1,0 +1,6 @@
+{
+  "name": "deterministicface-demo", "version": "0.2.0", "private": true, "type": "module",
+  "description": "Password-free experimental deterministic key portrait demo",
+  "scripts": {"build": "node scripts/build.mjs", "typecheck": "tsc --noEmit", "test": "npm run build && node --test tests/demo.test.mjs", "start": "node scripts/server.mjs", "demo": "npm run build && npm start"},
+  "devDependencies": {"typescript": "5.8.3"}, "engines": {"node": ">=22"}
+}
