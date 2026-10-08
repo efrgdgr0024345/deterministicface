@@ -1,0 +1,47 @@
+name: Working demo tests
+on:
+  push:
+    branches: [feat/df-demo-github]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: df-demo-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  demo-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.16.0'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck && npm test
+      - name: Build portable demo
+        run: node scripts/standalone.mjs
+      - name: Install browser-test tools
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium
+      - name: Test actual HTTP demo in Chromium
+        run: |
+          mkdir -p reports
+          node scripts/server.mjs > reports/server.log 2>&1 &
+          DEMO_PID=$!
+          trap 'kill "$DEMO_PID" 2>/dev/null || true' EXIT
+          python3 scripts/browser-test.py http://127.0.0.1:8000
+      - name: Retain runnable demo and test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: deterministicface-demo-and-tests
+          path: |
+            dist/DeterministicFace-demo.html
+            reports/
+          if-no-files-found: error
+          retention-days: 14

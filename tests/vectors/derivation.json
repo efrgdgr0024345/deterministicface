@@ -1,0 +1,87 @@
+{
+  "profile": "df-exp-1",
+  "hashAlgorithm": "sha256",
+  "source": "Project contract revision 1; Python oracle checked against RFC 5869 A.1",
+  "cases": [
+    {
+      "id": "zero-face",
+      "hashHex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "label": "face.shape",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "4437d6eb79f70a7a0429ad4a966707551ac0442b056efe1f65b1df65fbec2400e7c609f5651817d213e6f1b2e1338c4d68da33631500449ca1389b8e5ace6559"
+    },
+    {
+      "id": "zero-background",
+      "hashHex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "label": "background.structure",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "3334619cfdec215e134d39054520b00f9cd6d2daef56a37be3a7e4c357425296a0e4f9b05ac9d29b70656fc1d4d8a38d4fd4ff8c4bc09bda2c22b1fce8473a2f"
+    },
+    {
+      "id": "zero-landmarks",
+      "hashHex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "label": "landmarks.layout",
+      "index": 0,
+      "length": 128,
+      "expectedHex": "2bb31d5523fbbb7d5c18c644852c99f572f46ab1cf0db63d8e05e5f4ee01f7959b48fd55567c1713841d55b831462c4fbca9c84cf2888c4ab324f7ce94d51200456c90032a5c30edbf9b8dfe931f51cd73d87d189dcc3101b0d527ca39b1b9033e528054302ad6f018bcae4a3ac3fa2f63ce335f2d76d07a35313489fc869079"
+    },
+    {
+      "id": "ones-face",
+      "hashHex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "label": "face.shape",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "2d9a2a86adf4e2985ff6ee4451b2b66df35c45c0631f3b5eaffaf1eea842d3cdc3580a48a624ced95e75f75f9816089f8f1502fa8f050a3f7d16cff34c1c90a1"
+    },
+    {
+      "id": "sequence-face-index-zero",
+      "hashHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "label": "face.shape",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "0ab9da7755f43447ab8ffa9a2845465c255ac213279cd6d59a4ad07b51f43825c4bb0cc6766688d71d904d59e69303177913dbd61a5bb6ea892aa70d61743195"
+    },
+    {
+      "id": "sequence-face-index-one",
+      "hashHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "label": "face.shape",
+      "index": 1,
+      "length": 64,
+      "expectedHex": "44ab7dd5793801d152366b903ec2ca4bc29234511f93be5fa009ca2721a318d49de9a54e773b28841f7f247121ee66ae709c6ed3cc5f873024dc24925dd4d546"
+    },
+    {
+      "id": "last-bit-face",
+      "hashHex": "0000000000000000000000000000000000000000000000000000000000000001",
+      "label": "face.shape",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "25a733af4d26b04f500f1d52c20bd3fb6626a4f52b76aaf0a7c5e1a079d4d84c6644557523085bd1de45bc91bd48a5105ba6b45989bc11877e304a9871fe97e0"
+    },
+    {
+      "id": "last-bit-background",
+      "hashHex": "0000000000000000000000000000000000000000000000000000000000000001",
+      "label": "background.structure",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "79fed6fed9297b235e350f872e9bc8aa6ca1b07ca5c1a4f28369fc532fc4e1a5a2228e3c59f219f4d31ada9f4b12062f2ed85ee2cb88d2078a34afb0ca4025a2"
+    },
+    {
+      "id": "first-bit-face",
+      "hashHex": "8000000000000000000000000000000000000000000000000000000000000000",
+      "label": "face.shape",
+      "index": 0,
+      "length": 64,
+      "expectedHex": "db153192c8d910c51627be3cd41fed28a8f00ed12b626663cea7cacd5895a1b69d170f958cd99d7a6de888bddfd38723e5dbeb3e237d4c3cc477c38d30134705"
+    },
+    {
+      "id": "max-index",
+      "hashHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "label": "composition.layout",
+      "index": 4294967295,
+      "length": 33,
+      "expectedHex": "3d7fe02d3c8bbd1344e2eb38ab513e259fba4a2692f722e5d984dc223ecacdedd9"
+    }
+  ]
+}

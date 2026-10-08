@@ -1,0 +1,16 @@
+DeterministicFace research demo
+
+The current TypeScript procedural geometry and software rasterizer were written for this project.
+No third-party face images, fonts or trained model weights are included in this candidate.
+Native Web Crypto implements SHA-256, HKDF and Ed25519. TypeScript is development tooling by Microsoft, licensed Apache-2.0.
+
+Foundational research and implementation precedents (not claims of replication):
+Adrian Perrig and Dawn Song — Hash Visualization (1999).
+Their credited Random Art lineage: Andrej Bauer; Michael Witbrock and John Mount.
+Mozhgan Azimpourkivi, Umut Topkara and Bogdan Carbunar — CEAL (USENIX Security 2020).
+Alexander Becker — FaceHash (hash-to-StyleGAN face implementation).
+Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen and Timo Aila — StyleGAN2.
+Joshua Tan, Lujo Bauer, Joseph Bonneau, Lorrie Faith Cranor, Jeremy Thomas and Blase Ur — Can Unicorns Help Users Compare Crypto Key Fingerprints? (2017).
+
+This demo does not incorporate FaceHash or StyleGAN model code/weights; their comparison remains future work.
+The page's full credits include direct original-source links from the existing project scope.

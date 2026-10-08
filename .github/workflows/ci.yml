@@ -1,0 +1,46 @@
+name: Repository CI
+on:
+  pull_request:
+  push:
+    branches: [main, 'feat/**']
+permissions:
+  contents: read
+concurrency:
+  group: repository-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  repository-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Check repository contract
+        run: python3 tools/check_repository.py
+      - name: Test repository validators
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Verify deterministic derivation vectors
+        run: python3 tools/check_vectors.py
+  loader-tests:
+    name: loader-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    container: php:8.1-cli-bookworm
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install isolated test dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends libzip-dev libcurl4-openssl-dev python3 openssl
+          docker-php-ext-install zip curl
+      - name: PHP syntax and complete regression tests
+        run: |
+          php -v
+          php -l loader.php
+          php -l tools/test_loader.php
+          DF_REQUIRE_EXT=1 php tools/test_loader.php
+      - name: Local HTTPS integration tests
+        run: python3 tools/test_loader_http.py
