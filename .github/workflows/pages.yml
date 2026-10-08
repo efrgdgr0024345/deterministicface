@@ -2,7 +2,7 @@ name: Deploy working demo to GitHub Pages
 
 on:
   push:
-    branches: [feat/df-demo-github]
+    branches: [main, feat/df-demo-github]
   workflow_dispatch:
 
 permissions:
