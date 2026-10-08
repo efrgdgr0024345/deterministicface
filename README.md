@@ -1,42 +1,67 @@
-# DeterministicFace
+# DeterministicFace — working test demo
 
-A recognisable synthetic face **and background** derived from the actual public key a trusted application uses. The same canonical key and frozen specification must independently regenerate identical complete portrait pixels.
+**A public key becomes one reproducible illustrated face and background.**
 
-## Current authority
+This branch implements a password-free procedural prototype. No cPanel, GitHub-token form, image API, GPU, model download or database is needed to run it. It preserves the existing project documents and loader; the loader is not served or executed by this demo.
 
-The owner approved the comparative-renderer recommendations and a combined project console on 2026-09-27. Read [ADR 0002](docs/adr/0002-comparative-renderers-and-console.md) before older procedural-only documents. It explicitly supersedes the affected earlier decisions; the HKDF contract and vectors remain unchanged.
+## Open the GitHub demo
 
-## What exists
+**[Launch the prepared Codespace](https://github.com/codespaces/new?hide_repo_select=true&repo=1375010983&ref=feat%2Fdf-demo-github)**
 
-- Design, exact derivation contract/vectors and repository validation scaffolding.
-- `loader.php`: a single PHP source combining update controls, embedded scope, milestones, decisions, source credits, deployment identity, logs and rollback.
-- Console regression tests and local HTTPS integration tests. See [test evidence](docs/CONSOLE_TESTS.md).
+Choose **Create codespace**. The environment installs the pinned compiler, runs the tests and starts port **8000**. Open the forwarded port from GitHub's notification or the **Ports** panel. Startup attempts to make **only port 8000** public, as requested for this test demo. If GitHub denies that operation, change that port's visibility in the Ports panel. There is no application password.
 
-**The portrait generator, actual-key adapter and application are not implemented. No stable portrait profile or perceptual security claim exists.** The console is delivery tooling, not those features.
+GitHub sign-in may be required to create a Codespace or open a still-private forwarded port; that is separate from the app. Codespaces usage is subject to the account's allowance/budget. Do not enable paid usage just to bypass a limit.
 
-## Use the console
+A Codespace must be created before its real `app.github.dev` URL exists. **No active hosted URL is claimed by this README.** The branch-launch link above is not itself a running server. Codespaces can stop when idle; resume the same Codespace to use it again.
 
-Read [installation and operation](docs/CONSOLE.md). Upload only `loader.php` to a dedicated project folder. Runtime credentials, configuration, backups and state stay outside the public document root. There is no separate `project.php` or `project_content.json` to maintain.
+## Try these controls
 
-The normal update channel is `main`. Until the console changes are reviewed and merged, `feat/df-000a-project-console` is an explicitly acknowledged experimental channel. Checking a branch resolves an exact commit; installation downloads that commit, rechecks required CI, and never substitutes a newer moving snapshot.
+1. **New test key** creates a fresh public key locally and generates its complete portrait.
+2. **Regenerate the same key** renders from scratch and compares all 1,048,576 RGBA bytes.
+3. **Change one digest bit** compares both images. This is a digest experiment, not a claim that the modified input is another valid key.
+4. **Actual-key verification** signs a message and derives the portrait from the same public-key object used in verification. Editing the message or selecting another verification key demonstrates failure correctly.
+5. **Project & tests** runs browser self-tests and exports a credential-free report.
+6. **Generate 12-key gallery** generates the first 12 public test identities of the fixed 100-key corpus. No portrait lookup is used.
 
-## Development sequence
+The fixed corpus uses publicly derivable TEST seeds; never use those identities for real authentication. Private fixture material is not saved. The interactive signing test uses a fresh non-exportable private key in browser memory.
 
-1. Review this reconciled foundation and console work.
-2. Implement [DF-001](docs/tasks/DF-001.md) unchanged: parser, labelled HKDF derivation and sampling.
-3. Add a bounded real-public-key adapter and signed-file demonstration.
-4. Compare procedural and existing learned generators on 100 predetermined test keys.
-5. Select and harden the renderer using exactness, visual quality, recognition and lookalike evidence.
+## Commands
 
-[System design](docs/SYSTEM_DESIGN.md) · [Roadmap](docs/ROADMAP.md) · [Agent handoff](docs/HANDOFF.md) · [Status](docs/STATUS.md) · [References](docs/REFERENCES.md)
-
-```sh
-python3 tools/check_repository.py
-python3 -m unittest discover -s tools -p 'test_*.py' -v
-python3 tools/check_vectors.py
-php -l loader.php
-DF_REQUIRE_EXT=1 php tools/test_loader.php
-python3 tools/test_loader_http.py
+```bash
+npm ci --ignore-scripts --no-audit --no-fund
+npm test
+npm start
 ```
 
-The PHP ZIP extension is required for all archive tests; absent-extension skips must not be reported as a full pass. The HTTPS tests use a local ephemeral certificate and fixture credentials only. The production client does not disable TLS certificate verification.
+Open the forwarded port 8000 (or `http://localhost:8000` for a local checkout).
+
+```bash
+node scripts/manage-demo.mjs status
+node scripts/manage-demo.mjs stop
+node scripts/manage-demo.mjs start
+node scripts/manage-demo.mjs update
+```
+
+The update command refuses local changes and non-fast-forward pulls. It never resets or discards work. It rebuilds and tests before restarting. Failed updates do not pretend that a new build is running.
+
+## What exists / what does not
+
+Implemented: strict digest parsing, the unchanged labelled HKDF contract, native Ed25519 adapter and verification example, original procedural portrait geometry, a deterministic software RGBA renderer, canonical PNG encoding, a browser worker, gallery/comparison controls, a static read-only server, Codespaces startup and test workflow.
+
+**Not implemented or proven:** trained photorealistic faces, the learned-renderer comparison, validated human recognisability, expensive lookalike resistance, a stable security release, or conformance on every possible platform. This illustrated candidate is not a claim that the naturalness goal has been met.
+
+Exact pixel goldens are tested, not inferred from matching SVG. Rasterization uses fixed-coordinate polygons, explicit rounding, 2x supersampling and integer downsampling; no browser Canvas/SVG renderer, fonts, external assets or GPU defines the canonical pixels. Ordinary screen scaling is presentation only.
+
+## Existing project
+
+Start with [AGENTS.md](AGENTS.md), the [current demo decision](docs/adr/0003-github-test-demo.md), [demo implementation notes](docs/DEMO.md), [earlier approved comparison plan](docs/adr/0002-comparative-renderers-and-console.md) and [generator contract](docs/GENERATOR_CONTRACT.md).
+
+The local application/display/cryptographic system is trusted by scope. The objective is recognising its actual working key, not proving system health from a picture. Same canonical key and profile must independently regenerate the same whole portrait. No private key enters portrait derivation.
+
+The PHP console's existing embedded project JSON remains the source for historical scope/credits. The build parses it without evaluating PHP. Its old milestones are not silently marked complete by this prototype.
+
+## Test artifacts
+
+The **Working demo tests** workflow attaches `deterministicface-demo-and-tests`, containing the portable HTML demo and browser evidence. The single HTML is a generated, offline-capable copy using the same renderer; download it and open it in a browser with Web Crypto support. It is not a hosted live URL.
+
+Prior work is credited in [the project references](docs/REFERENCES.md), the demo's Credits section and [CREDITS.txt](demo/CREDITS.txt). No third-party face artwork or model weights are bundled.
