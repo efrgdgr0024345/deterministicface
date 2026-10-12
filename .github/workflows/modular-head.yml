@@ -1,0 +1,28 @@
+name: Modular head experiment
+on:
+  pull_request:
+    paths: ['experiments/modular-head/**', 'src/**', 'scripts/build.mjs', '.github/workflows/modular-head.yml']
+  push:
+    branches: ['feat/modular-head-experiment']
+permissions:
+  contents: read
+concurrency:
+  group: modular-head-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  scene-and-asset-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.16.0'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck && npm test
+      - run: node --test experiments/modular-head/spec.test.mjs
+      # Complete pixel checks require the separately pinned Blender 4.3.2 CPU
+      # reference. Do not substitute the runner's arbitrary Blender version.

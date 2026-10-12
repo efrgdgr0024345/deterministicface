@@ -64,4 +64,10 @@ The PHP console's existing embedded project JSON remains the source for historic
 
 The **Working demo tests** workflow attaches `deterministicface-demo-and-tests`, containing the portable HTML demo and browser evidence. The single HTML is a generated, offline-capable copy using the same renderer; download it and open it in a browser with Web Crypto support. It is not a hosted live URL.
 
-Prior work is credited in [the project references](docs/REFERENCES.md), the demo's Credits section and [CREDITS.txt](demo/CREDITS.txt). No third-party face artwork or model weights are bundled.
+Prior work is credited in [the project references](docs/REFERENCES.md), the demo's Credits section and [CREDITS.txt](demo/CREDITS.txt). The illustrated demo bundles no third-party face artwork or model weights.
+
+A separate [modular 3D head experiment](experiments/modular-head/README.md) explores
+compatible CC0 facial meshes, key-derived head angles, gaze and fixed hair strands
+with a pinned CPU renderer. It is a research candidate alongside this illustrated
+demo; its current output is visibly computer-generated and has not passed the
+photorealism or human/adversarial evaluation gates. See [ADR 0004](docs/adr/0004-modular-head-experiment.md).
