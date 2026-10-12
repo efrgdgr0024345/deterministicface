@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' blob:; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>DeterministicFace — modular portrait experiment</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="shell">
+  <header><a class="brand" href="../">df<span>·</span> <small>DETERMINISTICFACE</small></a><a href="../">Open live key generator ↗</a></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">MODULAR PORTRAIT EXPERIMENT / 01</p>
+      <h1>One key. One face.<br><em>A repeatable scene.</em></h1>
+      <p class="lead">Explore faces assembled on a shared head mesh, with separate eyes, facial morphs and fitted hair. Each key fixes the head angle, gaze and background.</p>
+      <div class="scope"><strong>CPU-rendered review gallery</strong><p>These six examples and four independent repeat renders were generated in Blender and saved for inspection. This page compares their complete pixels; it does not generate new 3D faces. The faces are still visibly computer-generated. Photorealism remains the next goal.</p></div>
+    </section>
+    <section aria-labelledby="gallery-title">
+      <div class="heading"><div><p class="eyebrow">01 / CHOOSE A PUBLIC TEST KEY</p><h2 id="gallery-title">Different angles. Fixed per key.</h2></div><p>The first six keys of the existing test corpus.</p></div>
+      <div id="gallery" class="gallery" aria-label="Modular portrait samples"></div>
+    </section>
+    <section class="lab" aria-labelledby="lab-title">
+      <div class="heading"><div><p class="eyebrow">02 / INSPECT THE COMPLETE PORTRAIT</p><h2 id="lab-title">Face and background, together.</h2></div><label class="zoom">View size <select id="zoom"><option value="fit">Fit</option><option value="1">Actual pixels</option><option value="2">2×</option><option value="4">4×</option></select></label></div>
+      <div class="toolbar">
+        <label>Compare with <select id="comparison" disabled></select></label>
+        <button id="same-key" disabled>Compare independent same-key render</button>
+        <button id="check" class="primary" disabled>Check every pixel</button>
+      </div>
+      <p class="hint">At larger sizes, scroll inside each portrait to inspect details. Keep any personally chosen face/background intersection to yourself; this page never asks you to mark it.</p>
+      <div id="status" class="status" role="status" aria-live="polite">Loading verified review fixtures…</div>
+      <div class="pair">
+        <article class="card"><div class="card-heading"><h3 id="left-title">Selected key</h3><span>512 × 512</span></div><div class="viewport" id="left-view"><img id="left-image" alt="Complete face and landscape for the selected public test key" hidden></div><div class="receipt"><p id="left-pose"></p><p class="eyebrow">PUBLIC TEST KEY</p><code id="left-key">—</code><p class="eyebrow">COMPLETE RGBA SHA-256</p><code id="left-hash">—</code><a id="download" download="modular-portrait.png" hidden>Download canonical PNG ↓</a></div></article>
+        <article class="card"><div class="card-heading"><h3 id="right-title">Comparison</h3><span>512 × 512</span></div><div class="viewport" id="right-view"><img id="right-image" alt="Complete portrait from the comparison render" hidden></div><div class="receipt"><p id="right-pose"></p><p class="eyebrow">PUBLIC TEST KEY</p><code id="right-key">—</code><p class="eyebrow">COMPLETE RGBA SHA-256</p><code id="right-hash">—</code><p id="comparison-origin" class="hint"></p></div></article>
+      </div>
+      <div id="result" class="result" role="status" aria-live="polite">Select a comparison, then check every pixel.</div>
+    </section>
+    <section class="notes" aria-labelledby="limits-title">
+      <div><p class="eyebrow">03 / WHAT YOU CAN TEST</p><h2 id="limits-title">Inspect the proposal.</h2><p>Compare turned and near-frontal heads, independent eye gaze, hair over a cheek, and the face/background composition. The angle controls are selections between keys: changing a pose while retaining a key would change its frozen portrait.</p><p>For test keys 1 and 2, choose a separate saved CPU render of the same key. “Check every pixel” verifies the PNG and raw RGBA checksums and compares all 1,048,576 channel bytes, including the background. It reads the original PNG scanlines rather than using browser display pixels.</p><p>To generate a fresh public key and independently regenerate its illustrated portrait in your browser, use the <a href="../">live key generator</a>.</p></div>
+      <div><p class="eyebrow">RESEARCH STATUS</p><h2>More realism to build.</h2><p>Skin detail, age and facial variety, natural hair, eye anatomy, clothing and landscape quality need further work. These examples establish exact-repeat evidence on the pinned CPU reference. They do not establish conformance on other render machines.</p><p>A private intersection can be remembered by the person. This prototype does not measure how much that obstructs an attacker’s search for a different valid key. No checkpoint entry, click marker, analytics or view-position storage is included.</p><details><summary>Renderer, provenance and saved evidence</summary><dl><dt>Profile</dt><dd>df-modular-cpu-exp-1</dd><dt>Reference</dt><dd>Blender 4.3.2 · CPU · 64 samples · one thread</dd><dt>Assembly</dt><dd>5,028 head control vertices; 3,200 fitted hair strands, with 36 extra strands in the loose-lock family.</dd></dl><p>Mesh, eye atlas and morph data: MakeHuman hm08, CC0. Source revision and asset checksums are recorded in the repository.</p><p><a id="source-link" href="https://github.com/efrgdgr0024345/deterministicface/tree/feat/modular-head-experiment/experiments/modular-head">Renderer source and reproduction commands ↗</a></p><p><a href="./data/catalog.json" download="modular-review-evidence.json">Download saved CPU evidence ↓</a></p><p id="build-id"></p></details></div>
+    </section>
+  </main>
+  <footer><span>DETERMINISTICFACE / EXPERIMENT</span><span>Same key + frozen profile → same complete portrait.</span></footer>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

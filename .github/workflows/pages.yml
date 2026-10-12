@@ -2,7 +2,7 @@ name: Deploy working demo to GitHub Pages
 
 on:
   push:
-    branches: [main, feat/df-demo-github]
+    branches: [main, feat/df-demo-github, feat/modular-head-experiment]
   workflow_dispatch:
 
 permissions:
@@ -17,6 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout exact source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -32,6 +33,29 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund
           npm run typecheck
           npm test
+          node --test experiments/modular-head/spec.test.mjs
+      - name: Install browser-test tools
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium
+      - name: Test modular review in Chromium
+        run: |
+          mkdir -p reports
+          node scripts/server.mjs > reports/modular-server.log 2>&1 &
+          DEMO_PID=$!
+          trap 'kill "$DEMO_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 50); do
+            if curl --fail --silent http://127.0.0.1:8000/healthz > /dev/null; then break; fi
+            sleep 0.1
+          done
+          python3 scripts/browser-modular-test.py http://127.0.0.1:8000
+      - name: Retain browser test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: modular-review-browser-evidence
+          path: reports/
+          retention-days: 14
       - name: Upload demo
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:

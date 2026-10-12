@@ -1,5 +1,14 @@
 # Project status — GitHub test demo
 
+Update: 13 October 2026 (Australia/Perth), experimental branch
+`feat/modular-head-experiment`. The separate CPU candidate passed fresh-process
+complete-pixel reference checks and now has an interactive saved-render review
+interface. Local core/server/review tests (31), scene/asset tests (4), modular browser
+checks (9) and existing browser tests passed. Faces remain visibly computer-generated.
+The existing Pages endpoint responds; publication of the new modular page is pending
+the `main`-only deployment policy decision. Main was not merged. See
+[web review notes](MODULAR_WEB.md) and [reference results](../experiments/modular-head/RESULTS.md).
+
 Updated 6 October 2026 for PR #4, branch `feat/df-demo-github`.
 
 The owner authorised continuing to a working password-free demo with multiple files. This supersedes the old cPanel-first route for this stage. The old design, loader and vectors remain preserved; loader.php is not executed or served by the new demo.

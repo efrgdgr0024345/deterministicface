@@ -15,7 +15,9 @@ const server=http.createServer(async(req,res)=>{
   if(path==='/healthz'){send(200,'application/json',JSON.stringify({ok:true,service:'deterministicface-demo'}));return;}
   if(path==='/api/build')path='/data/build.json';
   if(path==='/')path='/index.html';
-  if(path.includes('\\')||path.includes('\0')||path.split('/').some(p=>p.startsWith('.'))||!/^\/(?:index\.html|app\.js|style\.css|render-worker\.js|core\/[a-z-]+\.js|data\/[a-z-]+\.json|CREDITS\.txt)$/.test(path)){send(404,'text/plain','Not found');return;}
+  if(path==='/modular/'||path==='/modular')path='/modular/index.html';
+  const allowed=/^\/(?:index\.html|app\.js|style\.css|render-worker\.js|core\/[a-z-]+\.js|data\/[a-z-]+\.json|CREDITS\.txt|modular\/(?:index\.html|app\.js|verify\.js|style\.css|data\/(?:catalog\.json|build\.json|portrait-[0-5]\.png|repeat-[0-3]\.png)))$/;
+  if(path.includes('\\')||path.includes('\0')||path.split('/').some(p=>p.startsWith('.'))||!allowed.test(path)){send(404,'text/plain','Not found');return;}
   const target=await realpath(resolve(root,'.'+path));
   if(!target.startsWith(root+sep)||!(await stat(target)).isFile()){send(404,'text/plain','Not found');return;}
   const bytes=await readFile(target);send(200,mime[extname(target)]||'application/octet-stream',bytes);

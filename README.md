@@ -6,13 +6,24 @@ This branch implements a password-free procedural prototype. No cPanel, GitHub-t
 
 ## Open the GitHub demo
 
+The repository's GitHub Pages endpoint is
+**[DeterministicFace test demo](https://efrgdgr0024345.github.io/deterministicface/)**.
+The experimental branch adds an
+**[interactive modular portrait review](https://efrgdgr0024345.github.io/deterministicface/modular/)**:
+six fixed CPU-rendered examples, varied head turns, magnification, downloads and
+complete-pixel comparisons of saved independent renders. It is explicitly a review
+gallery; new arbitrary-key 3D rendering still requires the pinned local CPU renderer.
+Consult the [publication record](docs/MODULAR_WEB.md) for deployment evidence and limits.
+
+For a development environment rather than the static published site:
+
 **[Launch the prepared Codespace](https://github.com/codespaces/new?hide_repo_select=true&repo=1375010983&ref=feat%2Fdf-demo-github)**
 
 Choose **Create codespace**. The environment installs the pinned compiler, runs the tests and starts port **8000**. Open the forwarded port from GitHub's notification or the **Ports** panel. Startup attempts to make **only port 8000** public, as requested for this test demo. If GitHub denies that operation, change that port's visibility in the Ports panel. There is no application password.
 
 GitHub sign-in may be required to create a Codespace or open a still-private forwarded port; that is separate from the app. Codespaces usage is subject to the account's allowance/budget. Do not enable paid usage just to bypass a limit.
 
-A Codespace must be created before its real `app.github.dev` URL exists. **No active hosted URL is claimed by this README.** The branch-launch link above is not itself a running server. Codespaces can stop when idle; resume the same Codespace to use it again.
+A Codespace must be created before its real `app.github.dev` URL exists. The branch-launch link above is not itself a running server. Codespaces can stop when idle; resume the same Codespace to use it again.
 
 ## Try these controls
 

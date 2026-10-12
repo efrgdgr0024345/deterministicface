@@ -63,7 +63,8 @@ test('same-key canonical parameters repeat with no unrelated random state',async
 test('server is read-only and cannot serve repository or arbitrary files',async()=>{
  const port=19437;const child=spawn(process.execPath,['scripts/server.mjs'],{env:{...process.env,PORT:String(port)},stdio:'ignore'});
  try{let ready=false;for(let i=0;i<50;i++){try{if((await fetch(`http://127.0.0.1:${port}/healthz`)).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,50));}assert.ok(ready);
-  for(const path of ['/loader.php','/.git/config','/%2e%2e%2floader.php','/data/../loader.php','/scripts/server.mjs','/core/','/index.html/extra'])assert.equal((await fetch(`http://127.0.0.1:${port}`+path)).status,404);
+  for(const path of ['/loader.php','/.git/config','/%2e%2e%2floader.php','/data/../loader.php','/scripts/server.mjs','/core/','/index.html/extra','/modular/../../loader.php','/modular/data/portrait-6.png','/modular/data/repeat-4.png','/modular/render.py','/modular/review/catalog.json'])assert.equal((await fetch(`http://127.0.0.1:${port}`+path)).status,404);
+  for(const path of ['/modular/','/modular/app.js','/modular/verify.js','/modular/data/catalog.json','/modular/data/portrait-0.png'])assert.equal((await fetch(`http://127.0.0.1:${port}`+path)).status,200);
   assert.equal((await fetch(`http://127.0.0.1:${port}/`,{method:'POST',body:'no'})).status,405);
   const response=await fetch(`http://127.0.0.1:${port}/`);assert.equal(response.status,200);assert.ok(response.headers.get('content-security-policy').includes("form-action 'none'"));assert.equal(response.headers.get('set-cookie'),null);
   const build=await(await fetch(`http://127.0.0.1:${port}/api/build`)).json();assert.equal(build.authentication,'none');
