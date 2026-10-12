@@ -1,5 +1,24 @@
 # Agent handoff — working GitHub test demo
 
+## Latest modular review work
+
+On 13 October 2026 (Australia/Perth), the owner requested a working GitHub URL for
+the modular proposal. Branch `feat/modular-head-experiment` adds the separate CPU
+candidate and a finite interactive review gallery at `modular/`. Read
+[ADR 0004](adr/0004-modular-head-experiment.md), [ADR 0005](adr/0005-modular-github-review.md)
+and [web review notes](MODULAR_WEB.md). Six predetermined CPU images and four
+independent repeat images are bundled with exact PNG/RGBA checksums. The viewer
+never claims those saved images are live key-to-3D regeneration. The existing
+illustrated generator remains live and its fixed vectors/pixel goldens are preserved.
+
+Local checks passed: typecheck, 31 core/server/review tests, four scene/asset tests,
+nine modular browser checks and the existing browser/portable self-tests. Photorealism
+and different-valid-key lookalike resistance remain unestablished. No checkpoint,
+click marker, storage or telemetry is added. The existing Pages hostname responds,
+but its `github-pages` environment currently permits deployments from `main` only.
+Feature-branch publication therefore requires an explicit permission decision;
+do not merge, weaken the policy or claim the new URL is live merely from green CI.
+
 Start with AGENTS.md, [ADR 0003](adr/0003-github-test-demo.md), [status](STATUS.md), [demo notes](DEMO.md) and the current PR head. The latest owner instruction authorises a multi-file, password-free working demo hosted through GitHub. Do not restart cPanel/token/setup-code work.
 
 ## Fixed requirements

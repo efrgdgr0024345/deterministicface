@@ -16,4 +16,5 @@ writeFileSync('demo/data/project.json',JSON.stringify(scope,null,2)+'\n');
 let sha=null,dirty=null;
 try{sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();dirty=!!execFileSync('git',['status','--porcelain','--untracked-files=no'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}catch{}
 writeFileSync('demo/data/build.json',JSON.stringify({version:'0.2.0',sha,dirty,builtAt:new Date().toISOString(),profile:'df-procedural-pixels-1',node:process.version,renderer:'procedural software RGBA',learnedRenderer:'not implemented',securityStudy:'not performed',authentication:'none'},null,2)+'\n');
+await (await import('./build-modular.mjs')).buildModular();
 console.log('Demo built. No credentials or private keys read.');

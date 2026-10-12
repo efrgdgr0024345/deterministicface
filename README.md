@@ -6,13 +6,24 @@ This branch implements a password-free procedural prototype. No cPanel, GitHub-t
 
 ## Open the GitHub demo
 
+The repository's GitHub Pages endpoint is
+**[DeterministicFace test demo](https://efrgdgr0024345.github.io/deterministicface/)**.
+The experimental branch adds an
+**[interactive modular portrait review](https://efrgdgr0024345.github.io/deterministicface/modular/)**:
+six fixed CPU-rendered examples, varied head turns, magnification, downloads and
+complete-pixel comparisons of saved independent renders. It is explicitly a review
+gallery; new arbitrary-key 3D rendering still requires the pinned local CPU renderer.
+Consult the [publication record](docs/MODULAR_WEB.md) for deployment evidence and limits.
+
+For a development environment rather than the static published site:
+
 **[Launch the prepared Codespace](https://github.com/codespaces/new?hide_repo_select=true&repo=1375010983&ref=feat%2Fdf-demo-github)**
 
 Choose **Create codespace**. The environment installs the pinned compiler, runs the tests and starts port **8000**. Open the forwarded port from GitHub's notification or the **Ports** panel. Startup attempts to make **only port 8000** public, as requested for this test demo. If GitHub denies that operation, change that port's visibility in the Ports panel. There is no application password.
 
 GitHub sign-in may be required to create a Codespace or open a still-private forwarded port; that is separate from the app. Codespaces usage is subject to the account's allowance/budget. Do not enable paid usage just to bypass a limit.
 
-A Codespace must be created before its real `app.github.dev` URL exists. **No active hosted URL is claimed by this README.** The branch-launch link above is not itself a running server. Codespaces can stop when idle; resume the same Codespace to use it again.
+A Codespace must be created before its real `app.github.dev` URL exists. The branch-launch link above is not itself a running server. Codespaces can stop when idle; resume the same Codespace to use it again.
 
 ## Try these controls
 
@@ -64,4 +75,10 @@ The PHP console's existing embedded project JSON remains the source for historic
 
 The **Working demo tests** workflow attaches `deterministicface-demo-and-tests`, containing the portable HTML demo and browser evidence. The single HTML is a generated, offline-capable copy using the same renderer; download it and open it in a browser with Web Crypto support. It is not a hosted live URL.
 
-Prior work is credited in [the project references](docs/REFERENCES.md), the demo's Credits section and [CREDITS.txt](demo/CREDITS.txt). No third-party face artwork or model weights are bundled.
+Prior work is credited in [the project references](docs/REFERENCES.md), the demo's Credits section and [CREDITS.txt](demo/CREDITS.txt). The illustrated demo bundles no third-party face artwork or model weights.
+
+A separate [modular 3D head experiment](experiments/modular-head/README.md) explores
+compatible CC0 facial meshes, key-derived head angles, gaze and fixed hair strands
+with a pinned CPU renderer. It is a research candidate alongside this illustrated
+demo; its current output is visibly computer-generated and has not passed the
+photorealism or human/adversarial evaluation gates. See [ADR 0004](docs/adr/0004-modular-head-experiment.md).

@@ -14,5 +14,6 @@ corpora/
 *.key
 demo/core/
 demo/data/
+demo/modular/data/
 .demo-runtime/
 reports/
